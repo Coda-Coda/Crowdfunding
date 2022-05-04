@@ -1,6 +1,7 @@
 > Please be aware that the MIT licence below only applies to the 
 > source code of the files within this repository. It **does not apply to the 
-> DeepSEA code-base** (which is essential to actually use this repository).
+> DeepSEA codebase** (the DeepSEA codebase is essential for most potential
+> uses of this repository).
 > As a result, for practical purposes, _you are likely to only be able to use 
 > this repository for educational, research or evaluation purposes, and not for 
 > commercial use_, due to the limitations of the CompCert Licence.
