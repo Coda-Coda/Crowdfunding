@@ -1,4 +1,4 @@
 -R result DeepSpec
--R demo demo
+-R Crowdfunding Crowdfunding
 -R proofs SmartContract
 FunctionalCorrectness.v
