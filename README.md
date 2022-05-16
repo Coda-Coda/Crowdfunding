@@ -1,4 +1,6 @@
-# Dev Setup for DeepSEA Smart Contract Development
+# A Crowdfunding Smart Contract and Correctness Proof
+
+Making use of the DeepSEA system, this repository demonstrates proving the correctness of a crowdfunding smart contract. This is a **work in progress**.
 
 ## Using this repository - Please read this
 
