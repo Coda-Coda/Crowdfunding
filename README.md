@@ -22,7 +22,7 @@ all greatly appreciated.
 ```
 nix-build
 nix-shell
-./ds-to-coq-compilation.sh demo
+compile-coq demo
 ```
 
 3. Open `proofs/FunctionalCorrectness.v` in your favourite Coq IDE and begin proving! 🐔
