@@ -1,0 +1,11 @@
+object signature demo = {
+    const demo : unit -> unit
+}
+
+object Demo : demo {
+    let demo () = ()
+}
+
+layer CONTRACT  = {
+    o = Demo
+}
