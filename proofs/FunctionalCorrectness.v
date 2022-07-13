@@ -487,6 +487,22 @@ Qed.
 
 Close Scope int256.
 
+(* Safety property predicate *)
+Definition Safe P :=
+  forall state, Reachable state -> P state.
+     
+(* A safety property, describing that the smart contract has sufficient balance with regards to the smart contract's records of donors *)
+Definition balance_backed state :=
+  (Crowdfunding_funded (contract_state state)) = false
+  -> 
+  sum (Crowdfunding_backers (contract_state state))
+    <= Int256.unsigned (balance state (contract_address)) /\
+    (forall key value, get key (Crowdfunding_backers (contract_state state)) = Some value -> value >= 0).
+
+(* One of three properties describing a correct crowdfunding contract *)
+Lemma sufficient_funds_safe : Safe balance_backed.
+Abort.
+
 End Blockchain_Model.
 
 End FunctionalCorrectness.
