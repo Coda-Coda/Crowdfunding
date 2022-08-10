@@ -2,7 +2,13 @@
 
 Making use of the DeepSEA system, this repository demonstrates proving the correctness of a crowdfunding smart contract. This is a **work in progress**.
 
-This branch focuses on an approach where model is set up to only allow successful calls, except the one `no_op` case which models all failures - which cause a revert.
+This branch focuses on an approach where model is set up to only allow successful calls, except the one `no_op` case which models all failures which cause a revert.
+
+## Sections of note relating to the SPLASH 2022 poster
+ - [proofs/FunctionalCorrectness.v line 165](https://github.com/Coda-Coda/Crowdfunding/blob/splash-2022-poster/proofs/FunctionalCorrectness.v#L165) has the definition of the type `Action` which is a critical definition for the successful calls only approach. Note in particular the required arguments such as `case_donate_prf` which are the proofs required to be passed in that the call will succeed.
+ - [proofs/FunctionalCorrectness.v line 380](https://github.com/Coda-Coda/Crowdfunding/blob/splash-2022-poster/proofs/FunctionalCorrectness.v#L380) has the proof of the `donation_preserved` lemma making use of the successful calls only approach.
+ - [proofs/FunctionalCorrectness.v line 490](https://github.com/Coda-Coda/Crowdfunding/blob/splash-2022-poster/proofs/FunctionalCorrectness.v#L490) has the statement of the lemma `sufficient_funds_safe` described on the poster. The proof is left for future work.
+
 
 ## Using this repository - Please read this
 
