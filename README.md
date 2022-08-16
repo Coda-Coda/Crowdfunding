@@ -7,7 +7,7 @@ This branch focuses on an approach where model is set up to only allow successfu
 ## Sections of note relating to the SPLASH 2022 poster
  - [proofs/FunctionalCorrectness.v line 165](https://github.com/Coda-Coda/Crowdfunding/blob/splash-2022-poster/proofs/FunctionalCorrectness.v#L165) has the definition of the type `Action` which is a critical definition for the successful calls only approach. Note in particular the required arguments such as `case_donate_prf` which are the proofs required to be passed in that the call will succeed.
  - [proofs/FunctionalCorrectness.v line 380](https://github.com/Coda-Coda/Crowdfunding/blob/splash-2022-poster/proofs/FunctionalCorrectness.v#L380) has the proof of the `donation_preserved` lemma making use of the successful calls only approach.
- - [proofs/FunctionalCorrectness.v line 490](https://github.com/Coda-Coda/Crowdfunding/blob/splash-2022-poster/proofs/FunctionalCorrectness.v#L490) has the statement of the lemma `sufficient_funds_safe` described on the poster. The proof is left for future work.
+ - [proofs/FunctionalCorrectness.v line 490](https://github.com/Coda-Coda/Crowdfunding/blob/splash-2022-poster/proofs/FunctionalCorrectness.v#L490) has the statement of the lemma `sufficient_funds_safe` described on the poster. The proof has been completed using a similar model (making use of the snapshot approach but not the successful-calls-only approach) and is available [at this link](https://github.com/Coda-Coda/deepsea-1/blob/splash-2022-poster/contracts/crowdfunding/FunctionalCorrectness.v#L688).
 
 
 ## Using this repository - Please read this
