@@ -487,21 +487,31 @@ Qed.
 
 Close Scope int256.
 
+Definition CF_funded := Crowdfunding_funded.
+Definition CF_backers := Crowdfunding_backers.
+
 (* Safety property predicate *)
+(* bc_s abbreviates blockchain state *)
 Definition Safe P :=
-  forall state, Reachable state -> P state.
-     
+  forall bc_s, Reachable bc_s -> P bc_s.  
+Definition c_addr := contract_address.
+Definition to_uint := Int256.unsigned.
 (* A safety property, describing that the smart contract has sufficient balance with regards to the smart contract's records of donors *)
-Definition balance_backed state :=
+Definition balance_backed bc_s :=
+  let s := (contract_state bc_s) in
+  (CF_funded s) = false
+    -> sum (CF_backers s) <= to_uint (balance bc_s (c_addr))
+      /\ (forall k v, get k (CF_backers s) = Some v -> v >= 0).
+(* One of three properties describing a correct crowdfunding contract *)
+Lemma sufficient_funds_safe : Safe balance_backed.
+Abort.
+
+Definition balance_backed_unabbreviated state :=
   (Crowdfunding_funded (contract_state state)) = false
   -> 
   sum (Crowdfunding_backers (contract_state state))
     <= Int256.unsigned (balance state (contract_address)) /\
     (forall key value, get key (Crowdfunding_backers (contract_state state)) = Some value -> value >= 0).
-
-(* One of three properties describing a correct crowdfunding contract *)
-Lemma sufficient_funds_safe : Safe balance_backed.
-Abort.
 
 End Blockchain_Model.
 
