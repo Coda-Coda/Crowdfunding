@@ -2,7 +2,7 @@
 
 Making use of the DeepSEA system, this repository demonstrates proving the correctness of a crowdfunding smart contract. This is a **work in progress**.
 
-This branch focuses on an approach where model is set up to only allow successful calls, except the one `no_op` case which models all failures - which cause a revert.
+This branch focuses on an approach where model is set up to only allow successful calls, except the one `revert` case which models all failures - which cause a revert.
 
 ## Using this repository - Please read this
 
