@@ -337,6 +337,8 @@ Definition since_as_long (P : BlockchainState -> Prop) (Q : BlockchainState -> P
     (forall sa, List.In sa sc -> R sa) ->
     Q st'.
 
+Notation "Q `since` P `as-long-as` R" := (since_as_long P Q R) (at level 1).
+
 Definition donation_recorded (a : addr) (amount : Z) (s : BlockchainState) :=
   Int256Tree.get_default 0 a (Crowdfunding_backers (contract_state s)) = amount /\ amount > 0.
 
@@ -346,29 +348,24 @@ Definition no_claims_from (a : addr) (s : Step) :=
   | _ => True
   end.
     
-    
-    Ltac destruct_if_H :=
-      let caseName := fresh "IfCase" in
-      match goal with
-        | [ _ : context[if ?X then _ else _] |- _ ] => destruct X eqn:caseName
-      end.
-    
-    
-    
-    Ltac destruct_beq256_H :=
-      let caseName := fresh "IfCaseBeq" in
-        match goal with
-          | [ _ : context[(?X =? ?Y)%int256] |- _ ] => destruct (X =? Y)%int256 eqn:caseName
-        end.
-    
-    Ltac destruct_geq256_H :=
-          let caseName := fresh "IfCaseGeq" in
-            match goal with
-              | [ _ : context[(?X >=? ?Y)%int256] |- _ ] => destruct (X >=? Y)%int256 eqn:caseName
-            end.
-Notation "Q `since` P `as-long-as` R" := (since_as_long P Q R) (at level 1).
-    
-  
+Ltac destruct_if_H :=
+  let caseName := fresh "IfCase" in
+  match goal with
+    | [ _ : context[if ?X then _ else _] |- _ ] => destruct X eqn:caseName
+  end.
+
+Ltac destruct_beq256_H :=
+  let caseName := fresh "IfCaseBeq" in
+    match goal with
+      | [ _ : context[(?X =? ?Y)%int256] |- _ ] => destruct (X =? Y)%int256 eqn:caseName
+    end.
+
+Ltac destruct_geq256_H :=
+  let caseName := fresh "IfCaseGeq" in
+    match goal with
+      | [ _ : context[(?X >=? ?Y)%int256] |- _ ] => destruct (X >=? Y)%int256 eqn:caseName
+    end.
+
 Hint Unfold Z_bounded. (*Causes annoying issues, use autounfold in *. *)
   
 
