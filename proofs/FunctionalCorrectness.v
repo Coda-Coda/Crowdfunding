@@ -370,7 +370,9 @@ Ltac destruct_and :=
     | [ H : (_ /\ _) |- _ ] => destruct H
   end.
 
-Lemma donation_preserved (a : addr) (amount : Z):
+(* The expanded version more closely mirrors the proof as it was first
+     proven, before being written concisely. *)
+Lemma donation_preserved_expanded_version (a : addr) (amount : Z):
                (donation_recorded a amount)
   `since`      (donation_recorded a amount)
   `as-long-as` (no_claims_from a).
@@ -453,7 +455,7 @@ Definition donate_fun := Crowdfunding_donate_opt.
 
 Open Scope int256.
 
-Lemma donation_preserved_short_version (a : addr) (d : Z):
+Lemma donation_preserved (a : addr) (d : Z):
                (donation_recorded a d) 
   `since`      (donation_recorded a d)
   `as-long-as` (no_claims_from a).
