@@ -366,7 +366,7 @@ Definition no_claims_from (a : addr) (s : Step) :=
             match goal with
               | [ _ : context[(?X >=? ?Y)%int256] |- _ ] => destruct (X >=? Y)%int256 eqn:caseName
             end.
-            Notation "Q `since` P `as-long-as` R" := (since_as_long P Q R) (at level 1).
+Notation "Q `since` P `as-long-as` R" := (since_as_long P Q R) (at level 1).
     
   
 Hint Unfold Z_bounded. (*Causes annoying issues, use autounfold in *. *)
