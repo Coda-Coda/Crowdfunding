@@ -375,7 +375,9 @@ Ltac destruct_and :=
   end.
 
 Lemma donation_preserved (a : addr) (amount : Z):
-      (donation_recorded a amount) `since` (donation_recorded a amount) `as-long-as` (no_claims_from a).
+               (donation_recorded a amount)
+  `since`      (donation_recorded a amount)
+  `as-long-as` (no_claims_from a).
     Proof.
       unfold since_as_long.
       intros.
@@ -456,8 +458,9 @@ Definition donate_fun := Crowdfunding_donate_opt.
 Open Scope int256.
 
 Lemma donation_preserved_short_version (a : addr) (d : Z):
-      (donation_recorded a d) `since` (donation_recorded a d)
-        `as-long-as` (no_claims_from a).
+               (donation_recorded a d) 
+  `since`      (donation_recorded a d)
+  `as-long-as` (no_claims_from a).
 Proof.
 (* Proof of a temporal property. *)
 unfold since_as_long. intros. induction H; [assumption|].
