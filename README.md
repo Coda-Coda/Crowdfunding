@@ -40,7 +40,7 @@ nix-shell
 ```
 `nix-build` and `nix-shell` may take some time the first time they are run as they are installing the necessary dependencies and building DeepSEA.
 
-1. Open `proofs/FunctionalCorrectness.v` in your favourite Coq IDE and begin proving! 🐔
+3. Open `proofs/FunctionalCorrectness.v` in your favourite Coq IDE and begin proving! 🐔
 E.g.
 ```
 nix-shell
