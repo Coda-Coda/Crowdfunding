@@ -64,9 +64,6 @@ Context
 
 Definition ContractState := global_abstract_data_type.
 
-Context
-  (address_accepts_funds : ContractState -> addr -> addr -> Z -> bool).
-
 Definition initial_state :=
   mkBlockchainState
     snapshot_timestamp
@@ -81,12 +78,6 @@ Context {memModelOps : MemoryModelOps mem}.
 
 Context
   (contract_address : addr).
-
-(* The following is a helpful alternative to suppose instead of using `address_accepts_funds` alone. But it must be assumed explicitly. *)
-Definition address_accepts_funds_assumed_for_from_contract 
-  d sender recipient amount :=
-  if (sender =? contract_address)%int256 then true else
-  address_accepts_funds d sender recipient amount.
 
 Definition updateTimeAndBlock before block_count time_passing : BlockchainState :=
 mkBlockchainState
@@ -157,6 +148,11 @@ Definition next_blockchain_state (before : BlockchainState) (d : ContractState) 
     (new_balance_after_contract_call before d)
     (blockhash before)
     d.
+
+(* It is important to note that the current definition of make_machine_env
+     used below assumes that all transfers from the contract succeed.
+     The intention is to remedy this in future work. This does not 
+     affect the correctness of the donation_preserved lemma. *)
 
 (* This approach to defining Action requires all calls to a contract
    function to succeed, i.e. return (Some _ _), failure cases are
