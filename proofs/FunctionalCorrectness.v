@@ -175,11 +175,6 @@ Definition next_blockchain_state (before : BlockchainState) (d : ContractState) 
     (blockhash before)
     d.
 
-(* It is important to note that the current definition of make_machine_env
-     used below assumes that all transfers from the contract succeed.
-     The intention is to remedy this in future work. This does not 
-     affect the correctness of the donation_preserved lemma. *)
-
 (* This approach to defining Action requires all calls to a contract
    function to succeed, i.e. return (Some _ _), failure cases are
    amalgamated into the revert case. This means only needing to prove
