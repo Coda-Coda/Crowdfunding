@@ -30,17 +30,34 @@ Import ContractModel.ContractModel.
 
 Open Scope Z.
 
+Definition wei := int256. (* TODO consider whether this should be a tagged type instead. *)
+Delimit Scope int256_scope with int256.
+Infix "+" := Int256.add : int256_scope.
+Infix "-" := Int256.sub : int256_scope.
+Infix "=?" := Int256.eq (at level 70, no associativity) : int256_scope.
+
+Ltac me_transfer_cases :=
+  try match goal with
+    H : (Int256.one =? Int256.one)%int256 = false |- _ => 
+      rewrite Int256.eq_true in H; discriminate
+      end;
+  try match goal with
+    H : runStateT mzero _ = ret _ |- _ => 
+    simpl in H; discriminate
+  end.
+
 (* TODO this will probably need updating based on the definition of me_transfer *)
 Ltac ds_inv :=
       repeat (
         try inv_runStateT_branching;
-        let Case := fresh "SufficientFundsToTransferCase" in
+        let Case := fresh "NoOverflowOrUnderflowInTransferCase" in
         try match goal with
           | H : context[me_transfer _  _ _] |- _ => 
-          unfold me_transfer, make_machine_env in H
-          (* destruct (successful_transfer _ _ _ _) eqn:Case *)
+          unfold me_transfer, make_machine_env in H;
+          destruct (noOverflowOrUnderflowInTransfer _ _ _ _) eqn:Case
         end
-      ).
+      );
+      me_transfer_cases.
 
 Module FunctionalCorrectness.
 
@@ -49,12 +66,6 @@ The goal here is to, in a sense, quantify over an arbitrary snapshot of the Bloc
 *)
 
 Section Blockchain_Model.
-
-Definition wei := int256. (* TODO consider whether this should be a tagged type instead. *)
-Delimit Scope int256_scope with int256.
-Infix "+" := Int256.add : int256_scope.
-Infix "-" := Int256.sub : int256_scope.
-Infix "=?" := Int256.eq (at level 70, no associativity) : int256_scope.
 
 Context
   (snapshot_timestamp : int256)
