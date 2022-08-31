@@ -8,6 +8,7 @@ Import DeepSpec.lib.Monad.Monad.MonadNotation.
 
 Require Import Lia.
 Require Import List.
+Require Import Bool.
 Require Import ZArith.
 Require Import cclib.Maps.
 Require Import cclib.Integers.
@@ -54,7 +55,8 @@ Ltac ds_inv :=
         try match goal with
           | H : context[me_transfer _  _ _] |- _ => 
           unfold me_transfer, make_machine_env in H;
-          destruct (noOverflowOrUnderflowInTransfer _ _ _ _) eqn:Case
+          destruct (noOverflowOrUnderflowInTransfer _ _ _ _
+                    && (_ _ _ _ _)) eqn:Case
         end
       );
       me_transfer_cases.
@@ -75,6 +77,9 @@ Context
 
 Definition ContractState := global_abstract_data_type.
 
+Context
+  (address_accepts_funds : option ContractState -> addr -> addr -> wei -> bool).
+
 Definition initial_state :=
   mkBlockchainState
     snapshot_timestamp
@@ -89,6 +94,16 @@ Context {memModelOps : MemoryModelOps mem}.
 
 Context
   (contract_address : addr).
+
+(* The following is a helpful alternative to suppose instead of using `address_accepts_funds` alone. But it must be assumed explicitly. *)
+Definition address_accepts_funds_assumed_for_from_contract 
+  d sender recipient amount :=
+  if (sender =? contract_address)%int256 then true else
+  address_accepts_funds d sender recipient amount.
+
+Definition address_accepts_funds_assumption := address_accepts_funds_assumed_for_from_contract.
+(* The current model also has the implicit assumption that the transfers to a smart contract during a function call via callvalue are always accepted by the contract.
+   This could be changed by editing callvalue_prf in the definition of Action, similarly to how it is done for `externalBalanceTransfer` *)
 
 Definition updateTimeAndBlock before block_count time_passing : BlockchainState :=
 mkBlockchainState
@@ -175,24 +190,26 @@ Inductive Action (before : BlockchainState) :=
       r (* The return value of calling donate successfully given the context (and arguments, if applicable) *)
       contract_state_after (* The contract state after calling donate successfully given the context (and arguments, if applicable) *)
       (case_donate_prf : 
-          runStateT (Crowdfunding_donate_opt (make_machine_env contract_address before context)) (contract_state before)
+          runStateT (Crowdfunding_donate_opt (make_machine_env contract_address before context address_accepts_funds_assumption)) (contract_state before)
           = Some (r, contract_state_after))
   | call_Crowdfunding_getFunds (context : CallContext)
       (callvalue_prf : noOverflowOrUnderflowInTransfer (caller context) contract_address (callvalue context) (balance before) = true)
       r (* The return value of calling getFunds successfully given the context (and arguments, if applicable) *)
       contract_state_after (* The contract state after calling getFunds successfully given the context (and arguments, if applicable) *)
       (case_getFunds_prf : 
-          runStateT (Crowdfunding_getFunds_opt (make_machine_env contract_address before context)) (contract_state before)
+          runStateT (Crowdfunding_getFunds_opt (make_machine_env contract_address before context address_accepts_funds_assumption)) (contract_state before)
           = Some (r, contract_state_after))
   | call_Crowdfunding_claim (context : CallContext)
       (callvalue_prf : noOverflowOrUnderflowInTransfer (caller context) contract_address (callvalue context) (balance before) = true)
       r (* The return value of calling claim successfully given the context (and arguments, if applicable) *)
       contract_state_after (* The contract state after calling claim successfully given the context (and arguments, if applicable) *)
       (case_claim_prf : 
-          runStateT (Crowdfunding_claim_opt (make_machine_env contract_address before context)) (contract_state before)
+          runStateT (Crowdfunding_claim_opt (make_machine_env contract_address before context address_accepts_funds_assumption)) (contract_state before)
           = Some (r, contract_state_after))
   | externalBalanceTransfer (sender recipient : addr) (amount : wei) (* Note that if wei is currently an int256, so it is guaranteed to be non-negative. If ever changed to using Z again an appropriate check would be needed in this definition. *)
-      (prf : sender <> contract_address /\  noOverflowOrUnderflowInTransfer sender recipient amount (balance before) = true)
+      (prf : sender <> contract_address /\ 
+        ((noOverflowOrUnderflowInTransfer sender recipient amount (balance before))
+         && (address_accepts_funds_assumption None sender recipient amount) = true))
   | timePassing (block_count time_passing : int256)
                 (prf : validTimeChange block_count time_passing (block_number before) (timestamp before) = true)
   | revert (* A no-op, or a call with some error resulting in no state change, such as a contract reverting during its code execution, or such as calling an invalid function when there is no fallback defined. TODO check that DeepSEA does not have any fallback function in generated bytecode. *).
