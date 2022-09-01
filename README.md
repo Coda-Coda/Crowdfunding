@@ -9,11 +9,12 @@ This branch focuses on an approach where model is set up to only allow successfu
    - [`since_as_long`, `donation_recorded`, `no_claims_from`](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L352)
    - [`donation_preserved`](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L481).
 - [Listing 2: Section variables for the model](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L72)
-- [Listing 3: Initial state of the model](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L83)
-- [Listing 4: Action dependent on the current blockchain state](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L182)
-- [Listing 5: Step function](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L212)
-- [Listing 6: `donation_preserved` proof](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L481)
-- [Listing 7: Simplified proof situation at the first bullet of `donation_preserved`](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L497)
+- [Listing 3: Example of an assumption](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L95)
+- [Listing 4: Initial state of the model](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L80)
+- [Listing 5: Action dependent on the current blockchain state](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L182)
+- [Listing 6: Step function](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L212)
+- [Listing 7: `donation_preserved` proof](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L481)
+- [Listing 8: Simplified proof situation at the first bullet of `donation_preserved`](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L497)
   - To view the proof state follow the instructions outlined in _"Instructions for getting started"_ below. In CoqIDE you could navigate to line 497 then click _"Go to cursor"_ or via the menu: "Navigation" > "Go to".
 
 ## Using this repository - Please read this

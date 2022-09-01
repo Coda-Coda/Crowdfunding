@@ -77,9 +77,6 @@ Context
 
 Definition ContractState := global_abstract_data_type.
 
-Context
-  (address_accepts_funds : option ContractState -> addr -> addr -> wei -> bool).
-
 Definition initial_state :=
   mkBlockchainState
     snapshot_timestamp
@@ -94,6 +91,9 @@ Context {memModelOps : MemoryModelOps mem}.
 
 Context
   (contract_address : addr).
+
+Context
+  (address_accepts_funds : option ContractState -> addr -> addr -> wei -> bool).
 
 (* The following is a helpful alternative to suppose instead of using `address_accepts_funds` alone. But it must be assumed explicitly. *)
 Definition address_accepts_funds_assumed_for_from_contract 
