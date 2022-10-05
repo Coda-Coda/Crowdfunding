@@ -14,8 +14,8 @@ This branch focuses on an approach where model is set up to only allow successfu
 - [Listing 5: Action dependent on the current blockchain state](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L182)
 - [Listing 6: Step function](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L212)
 - [Listing 7: `donation_preserved` proof](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L481)
-- [Listing 8: Simplified proof situation at the first bullet of `donation_preserved`](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L497)
-  - To view the proof state follow the instructions outlined in _"Instructions for getting started"_ below. In CoqIDE you could navigate to line 497 then click _"Go to cursor"_ or via the menu: "Navigation" > "Go to".
+- [Listing 8: Simplified proof situation at the first bullet of `donation_preserved`](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L498)
+  - To view the proof state follow the instructions outlined in _"Instructions for getting started"_ below. In CoqIDE you could navigate to line 498 then click _"Go to cursor"_ or via the menu: "Navigation" > "Go to".
 
 ## Using this repository - Please read this
 

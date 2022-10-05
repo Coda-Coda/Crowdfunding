@@ -478,10 +478,11 @@ Definition donate_fun := Crowdfunding_donate_opt.
 
 Open Scope int256.
 
-Lemma donation_preserved (a : addr) (d : Z):
-               (donation_recorded a d) 
-  `since`      (donation_recorded a d)
-  `as-long-as` (no_claims_from a).
+Lemma donation_preserved :
+  forall (a : addr) (d : Z),
+                 (donation_recorded a d) 
+    `since`      (donation_recorded a d)
+    `as-long-as` (no_claims_from a).
 Proof.
 (* Proof of a temporal property. *)
 unfold since_as_long. intros. induction H; [assumption|].
@@ -493,7 +494,7 @@ split; [|assumption]. Hlinks. assert (no_claims_from a prev) by
 destruct prev; autounfold in *; simpl in *.
 clear H1 H HL. unfold no_claims_from in H3.
 unfold donation_recorded in *. destruct Step_action0; simpl in *;
-rewrite <- HS in *; try contradiction; try assumption.
+rewrite <- HS in *; try assumption.
 - Transparent Crowdfunding_donate_opt.
   unfold Crowdfunding_donate_opt in *. ds_inv; subst; simpl; inv_FT.
   destruct (a =? (caller context)) eqn:Case.
@@ -503,7 +504,8 @@ rewrite <- HS in *; try contradiction; try assumption.
   + apply Int256eq_false in Case. apply get_default_so; assumption.
 - Transparent Crowdfunding_getFunds_opt.
   unfold Crowdfunding_getFunds_opt in *.
-  ds_inv; subst; simpl; try reflexivity.
+  ds_inv; subst; reflexivity.
+- contradiction.
 Qed.
 
 Close Scope int256.
