@@ -95,12 +95,13 @@ Context
 Context
   (address_accepts_funds : option ContractState -> addr -> addr -> wei -> bool).
 
+Open Scope int256.
 (* The following is a helpful alternative to suppose instead of using `address_accepts_funds` alone. But it must be assumed explicitly. *)
 Definition address_accepts_funds_assumed_for_from_contract 
   d sender recipient amount :=
-  if (sender =? contract_address)%int256 then true else
+  if sender =? contract_address then true else
   address_accepts_funds d sender recipient amount.
-
+Close Scope int256.
 Definition address_accepts_funds_assumption := address_accepts_funds_assumed_for_from_contract.
 (* The current model also has the implicit assumption that the transfers to a smart contract during a function call via callvalue are always accepted by the contract.
    This could be changed by editing callvalue_prf in the definition of Action, similarly to how it is done for `externalBalanceTransfer` *)
