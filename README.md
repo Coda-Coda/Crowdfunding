@@ -2,7 +2,7 @@
 
 Making use of the DeepSEA system, this repository demonstrates proving the correctness of a crowdfunding smart contract. This is a **work in progress**.
 
-This branch focuses on an approach where model is set up to only allow successful calls, except the one `revert` case which models all failures - which cause a revert.
+This branch focuses on an approach where the model is set up to focus on successful calls, with all obligations relating to reverting handled by a single proof obligation rather than needing to be proven over and over again.
 
 ## Sections of note relating to the FTSCS 2022 Paper
  - Listing 1: Statement of the _donation preserved_ lemma
