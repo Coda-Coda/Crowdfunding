@@ -16,7 +16,7 @@ This branch focuses on an approach where model is set up to only allow successfu
 - [Listing 7: `donation_preserved` proof](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L482)
 - [Listing 8: Simplified proof situation at the first bullet of `donation_preserved`](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/proofs/FunctionalCorrectness.v#L499)
   - To view the proof state follow the instructions outlined in _"Instructions for getting started"_ below. In CoqIDE you could navigate to line 499 then click _"Go to cursor"_ or via the menu: "Navigation" > "Go to".
-
+- In addition, the Crowdfunding contract in the DeepSEA language is available [here](https://github.com/Coda-Coda/Crowdfunding/blob/FTSCS-2022/Crowdfunding.ds).
 ## Using this repository - Please read this
 
 Please be aware that the MIT licence only applies to the source code of the files within this repository. It **does not apply to the DeepSEA codebase** (the DeepSEA codebase is essential for most potential uses of this repository). As a result, for practical purposes, _you are likely to only be able to use this repository for educational, research or evaluation purposes, and not for commercial use_, due to the limitations of the CompCert Licence.
