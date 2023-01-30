@@ -1,4 +1,5 @@
 -R result DeepSpec
 -R Crowdfunding Crowdfunding
+-R trivial trivial
 -R proofs SmartContract
 FunctionalCorrectness.v

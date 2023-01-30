@@ -1,0 +1,24 @@
+object signature trivial = {
+    const boolToInt : bool -> int;
+    boolToIntTracker : bool -> int
+}
+
+object Trivial : trivial {
+    let seenTrueYet : bool := false
+
+    let boolToInt b =
+       if b then 1 else 0
+
+    let boolToIntTracker b =
+      if b then
+        begin
+            seenTrueYet := true;
+            1
+        end
+      else 0
+
+}
+
+layer CONTRACT  = {
+    o = Trivial
+}
