@@ -1,6 +1,6 @@
 # A Crowdfunding Smart Contract and Correctness Proof
 
-This branch is used for building slides for [a talk at the Ethereum Engineering Group Meetup](https://github.com/Coda-Coda/Eth-Eng-Grp-Talk-2023) making use of [Alectryon](https://github.com/cpitclaudel/alectryon).
+This branch is used for building slides for [a talk at the Ethereum Engineering Group Meetup](https://github.com/Coda-Coda/Alectryon-slides/tree/eth-eng-grp-talk-2023) making use of [Alectryon](https://github.com/cpitclaudel/alectryon).
 
 ## Using this repository - Please read this
 
