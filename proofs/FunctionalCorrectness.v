@@ -335,17 +335,6 @@ Ltac reachableFromByLinks :=
     epose proof (ReachableFromByLinkStepToList _ _ _ _ H) as StepToListName
   end.
 
-
-(* Ugh *)
-(* Inductive ReachableFromBy from (s : BlockchainState) (next_action : Action s) : list Step -> Prop :=
-| initial_case (first_action : Action from)
-    : ReachableFromBy from from first_action [mkStep from first_action]
-| step_case (prevList : list Step) (Hprev : ReachableFromBy from s next_action prevList)
-    (next_step_action : Action (step s next_action))
-    : ReachableFromBy from (step s next_action) next_step_action
-     (stepOnce s next_action next_step_action :: prevList)  
-. *)
-
 Definition ReachableFrom from state := exists l step', ReachableFromBy from state step' l.
 
 Definition Reachable := ReachableFrom initial_state.
