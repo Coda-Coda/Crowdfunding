@@ -22,7 +22,8 @@ all greatly appreciated.
 ```
 nix-build
 nix-shell
-compile-coq demo
+./compile-coq Crowdfunding # don't include the ".ds"
+./compile-coq trivial # don't include the ".ds"
 ```
 
 3. Open `proofs/FunctionalCorrectness.v` in your favourite Coq IDE and begin proving! 🐔
