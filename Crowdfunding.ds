@@ -39,9 +39,8 @@ object Crowdfunding () : CrowdfundingSig {
       let _max_block = max_block in
       if (blk > _max_block) then
         begin
-          (* Do not accept funds *)
           emit Message(_deadlinePassed_msg);
-          assert(false)
+          assert(false) (* Revert: do not accept funds *)
         end
       else
         begin
@@ -50,9 +49,8 @@ object Crowdfunding () : CrowdfundingSig {
               backers[msg_sender] := msg_value
           else
             begin
-              (* Do not accept funds *)
               emit Message(_alreadyDonated_msg);
-              assert(false)
+              assert(false) (* Revert: do not accept funds *)
             end
         end
 
