@@ -1,6 +1,6 @@
 # A Crowdfunding Smart Contract and Correctness Proof
 
-Making use of the DeepSEA system, this repository demonstrates proving the correctness of a crowdfunding smart contract. This is a **work in progress**.
+Making use of the DeepSEA system, this repository demonstrates proving the three properties important to the correctness of a crowdfunding smart contract.
 
 ## Using this repository - Please read this
 
@@ -22,7 +22,13 @@ all greatly appreciated.
 ```
 nix-build
 nix-shell
-compile-coq demo
+./compile-coq Crowdfunding         # Note: do not include ".ds"
 ```
 
-3. Open `proofs/FunctionalCorrectness.v` in your favourite Coq IDE and begin proving! 🐔
+3. Open `proofs/FunctionalCorrectness.v` in your favourite Coq IDE (v. 8.14.1) and explore the proofs! 🐔
+
+E.g.
+```
+nix-shell
+coqide ./proofs/FunctionalCorrectness.v
+```
