@@ -1,7 +1,6 @@
 (* Based on https://github.com/Zilliqa/scilla-coq/blob/master/Contracts/Crowdfunding.v used under the BSD-2-Clause license *)
 (* Also a relevant reference: https://scilla.readthedocs.io/en/latest/scilla-by-example.html#a-second-example-crowdfunding *)
 
-type addr := uint
 type message := int
 
 const _deadlinePassed_msg = 0
@@ -31,21 +30,10 @@ object Crowdfunding () : CrowdfundingSig {
 
     let backers : mapping[address] int := mapping_init
     let funded : bool := false
-
-
-    let deadlinePassed_msg : message := 0
-    let successfullyDonated_msg : message := 1
-    let alreadyDonated_msg : message := 2
-    let funded_msg : message := 3
-    let failed_msg : message := 4
-    let too_early_to_claim_funds_msg : message := 5
-    let too_early_to_reclaim_msg : message := 6
-    let cannot_refund_msg : message := 7
-    let here_is_your_money_msg : message := 8
     
     let donate () =
       assert(msg_sender <> this_address);
-      assert(((int) msg_value) >= 0);
+      assert(msg_value >= 0);
       let bs = backers in
       let blk = block_number in
       let _max_block = max_block in
@@ -59,7 +47,7 @@ object Crowdfunding () : CrowdfundingSig {
         begin
           let backed_amount = backers[msg_sender] in
           if (backed_amount = 0) then
-              backers[msg_sender] := (int) msg_value
+              backers[msg_sender] := msg_value
           else
             begin
               (* Do not accept funds *)
@@ -70,12 +58,12 @@ object Crowdfunding () : CrowdfundingSig {
 
   let getFunds () = 
     assert(msg_sender <> this_address);
-    assert(((int) msg_value) = 0);
+    assert(msg_value = 0);
     let _owner = owner in
     if (msg_sender = _owner) then
       begin
         let blk = block_number in
-        let bal = (int) balance(this_address) in
+        let bal = balance(this_address) in
         let _max_block = max_block in
         if (blk > _max_block) then
           let _goal = goal in
@@ -84,7 +72,7 @@ object Crowdfunding () : CrowdfundingSig {
               funded := true;
               (* Send all funds to owner *)
               emit Message(_funded_msg);
-              transferEth(_owner, (uint) bal)
+              transferEth(_owner, bal)
             end
           else
             (* Funding campaign failed, do not send funds to owner *)
@@ -98,14 +86,14 @@ object Crowdfunding () : CrowdfundingSig {
 
     let claim() =
         assert(msg_sender <> this_address);
-        assert(((int) msg_value) = 0);
+        assert(msg_value = 0);
         let blk = block_number in
         let _max_block = max_block in
         if (blk <= _max_block) then
           (* Too early to reclaim, do not send funds back. *)
           emit Message(_too_early_to_reclaim_msg)
         else
-          let bal = (int) balance(this_address) in
+          let bal = balance(this_address) in
           let backed_amount = backers[msg_sender] in
           let _funded = funded in
           let _goal = goal in
@@ -117,7 +105,7 @@ object Crowdfunding () : CrowdfundingSig {
               (* Can refund, send funds back *)
               backers[msg_sender] := 0;
               emit Message(_here_is_your_money_msg);
-              transferEth(msg_sender, (uint) backed_amount)
+              transferEth(msg_sender, backed_amount)
             end
 }
 
