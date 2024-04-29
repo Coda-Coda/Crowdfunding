@@ -1200,9 +1200,9 @@ destruct (noOverflowOrUnderflowInTransfer contract_address backer_addr (get_defa
             rewrite Int256.eq_false in H8 by auto.
             rewrite Int256.eq_false in H8 by auto.
             rewrite Z.add_0_r in H8.
-pose proof sufficient_funds_safe as sufficient_funds_safe. (* sufficient_funds_safe *)
-unfold Safe in sufficient_funds_safe. (* H sufficient_funds_safe *)
-apply sufficient_funds_safe in H. (* H *)
+            pose proof sufficient_funds_safe as sufficient_funds_safe. (* sufficient_funds_safe *)
+            unfold Safe in sufficient_funds_safe. (* H sufficient_funds_safe *)
+            apply sufficient_funds_safe in H. (* H *)
             unfold balance_backed in H.
             destruct H. assumption.
             apply H9 in H; [|assumption].
