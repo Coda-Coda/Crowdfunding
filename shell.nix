@@ -8,8 +8,8 @@ let pkgs = import (
 let deepsea = ( pkgs.fetchFromGitHub {
     owner  = "Coda-Coda";
     repo   = "deepsea-1";
-    rev    = "acfba798693af79e41f25102a88ad364cfa80578";
-    sha256 = "0435zmmcchvd4mpa1mpdpci5p4wnbnkvjl2v78py4igsgqxsdzjw"; } );
+    rev    = "cd2754bc8e6cbee26bcbf77844fdaddd6705f34a";
+    sha256 = "10cg8bf4zdc3zn56p8wib8c0yivkibpcl1dr89j8934n0y9rl6vy"; } );
     # To update the sha256 run:
     # nix-prefetch-url --unpack https://github.com/Coda-Coda/deepsea-1/archive/commitHashGoesHere.tar.gz
     # Then replace sha256 = ... with the last string of characters returned by nix-prefetch-url
